@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dark_gradient_background"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".RegistrationActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="322dp"
+                android:layout_height="134dp"
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/heading_logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create New Account"
+                android:textColor="@color/colorAccent"
+                android:textSize="24sp"
+                app:fontFamily="@font/bilbo" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_photo"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_launcher_background"
+                app:civ_border_color="@color/colorPrimaryDark"
+                app:civ_border_width="2dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Change Picture"
+                android:textColor="@color/colorAccent" />
+
+            <EditText
+                android:id="@+id/name_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="Enter your Name Here"
+                android:inputType="textPersonName"
+                android:textColor="@color/ic_launcher_background"
+                android:textColorHint="@color/colorAccent" />
+
+            <EditText
+                android:id="@+id/date_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="Enter your Date of Birth"
+                android:inputType="date"
+                android:textColor="@color/ic_launcher_background"
+                android:textColorHint="@color/colorAccent" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/male_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Male"
+                    android:textColor="@color/ic_launcher_background" />
+
+                <RadioButton
+                    android:id="@+id/female_radio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:shadowColor="@color/ic_launcher_background"
+                    android:text="Female"
+                    android:textColor="@color/ic_launcher_background"
+                    android:textColorHighlight="@color/ic_launcher_background"
+                    android:textColorHint="@color/ic_launcher_background" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/email_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="Enter Your Email or Phone"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/ic_launcher_background"
+                android:textColorHint="@color/colorAccent" />
+
+            <EditText
+                android:id="@+id/password_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Enter Password"
+                android:inputType="textPassword"
+                android:textColor="@color/ic_launcher_background"
+                android:textColorHint="@color/colorAccent" />
+
+            <EditText
+                android:id="@+id/password_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:textColor="@color/ic_launcher_background"
+                android:textColorHint="@color/colorAccent" />
+
+            <Button
+                android:id="@+id/register_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_background"
+                android:text="SIGN UP"
+                android:textColor="@color/colorPrimaryDark" />
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>

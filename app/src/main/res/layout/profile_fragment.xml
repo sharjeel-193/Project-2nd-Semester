@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".ui.profile.ProfileFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:elevation="7dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="30dp"
+            android:paddingBottom="5dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_photo"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="67dp"
+                android:src="@drawable/ic_launcher_background"
+                app:civ_border_color="@color/colorPrimaryDark"
+                app:civ_border_width="2dp" />
+
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="User Name"
+                android:textColor="@color/colorOfText"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:fontFamily="@font/actor" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="30dp"
+                android:gravity="center_horizontal">
+
+                <TableRow>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/like_icon"
+                        android:tint="@color/colorPrimary" />
+
+                    <TextView
+                        android:text="Likes"
+                        android:textColor="@color/colorOfText"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/profile_likes"
+                        android:layout_marginLeft="15dp"
+                        android:text="50"
+                        android:textColor="@color/colorOfText"
+                        android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/follower_icon"
+                        android:tint="@color/colorPrimary" />
+
+                    <TextView
+                        android:text="Followers"
+                        android:textColor="@color/colorOfText"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/profile_followers"
+                        android:layout_marginLeft="15dp"
+                        android:text="50"
+                        android:textColor="@color/colorOfText"
+                        android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/following_icon"
+                        android:tint="@color/colorPrimary" />
+
+                    <TextView
+                        android:text="Following"
+                        android:textColor="@color/colorOfText"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/profile_following"
+                        android:layout_marginLeft="15dp"
+                        android:text="50"
+                        android:textColor="@color/colorOfText"
+                        android:textSize="18sp" />
+                </TableRow>
+
+            </TableLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/profile_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="45dp"/>
+
+
+</LinearLayout>
