@@ -18,11 +18,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.Toolbar
+    <LinearLayout
         android:id="@+id/music_player"
-        android:layout_width="360dp"
-        android:layout_height="165dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="460dp"
+        android:orientation="vertical"
         android:background="@drawable/login_background"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
@@ -72,7 +73,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -84,7 +85,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:paddingLeft="8dp"
@@ -135,6 +136,6 @@
             </LinearLayout>
 
         </LinearLayout>
-    </androidx.appcompat.widget.Toolbar>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

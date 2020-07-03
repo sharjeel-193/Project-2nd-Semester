@@ -6,10 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.sing.SingFragment">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/sing_fragment_container"
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
