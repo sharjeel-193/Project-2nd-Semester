@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,10 +10,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cover_posts_feed"
         android:layout_width="match_parent"
-        android:layout_height="456dp"
+        android:layout_height="fill_parent"
         android:background="@drawable/dark_gradient_background"
         android:paddingLeft="10dp"
-        android:paddingTop="60dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="150dp"
         android:paddingRight="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +23,8 @@
         android:id="@+id/music_player"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="460dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
         android:orientation="vertical"
         android:background="@drawable/login_background"
         android:minHeight="?attr/actionBarSize"
@@ -138,4 +140,4 @@
         </LinearLayout>
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
