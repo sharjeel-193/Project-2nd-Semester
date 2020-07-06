@@ -40,13 +40,6 @@ public class NotificationsFragment extends Fragment {
 
         notificationsList = new ArrayList<>();
 
-//        final TextView textView = root.findViewById(R.id.text_notifications);
-//        notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
 
         //UI TESTING CODE
 
