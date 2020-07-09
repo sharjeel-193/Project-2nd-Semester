@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".uploading.RecordFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/recording_instrumental_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Song Name"
+            android:textColor="@color/colorOfText"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/recording_instrumental_artist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Artist Name"
+            android:textColor="@color/colorPrimary" />
+
+        <SeekBar
+            android:id="@+id/instrumental_progress"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:progressTint="@color/colorPrimaryDark"
+            app:tickMarkTint="@color/colorPrimaryDark" />
+
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <Chronometer
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/colorOfText" />
+
+            <TextView
+                android:id="@+id/total_time_instrumental"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="3 : 56"
+                android:textColor="@color/colorOfText" />
+        </LinearLayout>
+
+        <Chronometer
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:textSize="40sp"
+            android:id="@+id/cover_recording_time"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <io.gresse.hugo.vumeterlibrary.VuMeterView
+            android:id="@+id/meter"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="10dp"
+            android:scrollbarThumbHorizontal="@color/colorAccent"
+            android:scrollbarTrackHorizontal="@drawable/dark_gradient_background" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/recording_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-20dp"
+            android:onClick="recordBtnClick"
+            android:scaleType="center"
+            android:src="@drawable/ic_mic_dark"
+            app:fabCustomSize="80dp"
+            app:fab_colorNormal="@color/colorAccent" />
+
+<!--        <ImageView-->
+<!--            android:id="@+id/recorder_pause_btn"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:src="@drawable/ic_stop"-->
+<!--            android:tint="@color/colorOfText" />-->
+
+        <Button
+            android:id="@+id/finish_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/dark_gradient_background"
+            android:padding="10dp"
+            android:text="Finish"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@color/ic_launcher_background"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+
+    </LinearLayout>
+</LinearLayout>

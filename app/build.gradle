@@ -44,6 +44,10 @@ dependencies {
     implementation "androidx.navigation:navigation-ui:$nav_version"
     //Material Design
     implementation 'com.google.android.material:material:1.2.0-alpha04'
+    //Music Player
+    implementation 'io.gresse.hugo.vumeterlibrary:vumeterlibrary:1.0.17'
+    //FAB
+    implementation 'com.getbase:floatingactionbutton:1.10.1'
 
 
 

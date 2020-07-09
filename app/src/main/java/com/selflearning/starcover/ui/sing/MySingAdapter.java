@@ -1,6 +1,7 @@
 package com.selflearning.starcover.ui.sing;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.selflearning.starcover.Logic.Instrumental;
+import com.selflearning.starcover.MainActivity;
 import com.selflearning.starcover.R;
+import com.selflearning.starcover.uploading.UploadingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,12 +40,24 @@ public class MySingAdapter extends RecyclerView.Adapter<SingViewHolder> implemen
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SingViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final SingViewHolder holder, int position) {
 
         holder.instrumentalThumbnai.setImageResource(instrumentalList.get(position).getInstrumentalImageId());
         holder.instrumentalName.setText(instrumentalList.get(position).getSongName());
         holder.instrumentalArtist.setText(instrumentalList.get(position).getArtistName());
         holder.instrumentalDuration.setText(String.valueOf(instrumentalList.get(position).getDuration()));
+
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,UploadingActivity.class);
+                intent.putExtra("SONG",holder.instrumentalName.getText());
+                intent.putExtra("ARTIST",holder.instrumentalArtist.getText());
+                context.startActivity(intent);
+            }
+        });
+
+
 
     }
 
@@ -83,6 +98,8 @@ public class MySingAdapter extends RecyclerView.Adapter<SingViewHolder> implemen
             }
         };
     }
+
+
 }
 class SingViewHolder extends RecyclerView.ViewHolder{
 
@@ -97,6 +114,6 @@ class SingViewHolder extends RecyclerView.ViewHolder{
         instrumentalName = (TextView) itemView.findViewById(R.id.search_instrumental_name);
         instrumentalArtist = (TextView) itemView.findViewById(R.id.search_instrumental_artist);
         instrumentalDuration = (TextView) itemView.findViewById(R.id.search_instrumental_duration);
-
+        layout = (LinearLayout) itemView.findViewById(R.id.sing_iitem_layout);
     }
 }
