@@ -1,6 +1,5 @@
 package com.selflearning.starcover.ui.profile;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -15,12 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.selflearning.starcover.Logic.Cover;
 import com.selflearning.starcover.R;
 import com.selflearning.starcover.friends.FriendsActivity;
-import com.selflearning.starcover.ui.home.MyHomeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +33,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container,
                              Bundle savedInstanceState) {
         profileViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
-        View root = inflater.inflate(R.layout.profile_fragment,container,false);
+        View root = inflater.inflate(R.layout.fragment_profile,container,false);
         
 //        final TextView textView = root.findViewById(R.id.text_profile);
 //        profileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {

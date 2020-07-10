@@ -14,7 +14,7 @@
         android:id="@+id/navigation_sing"
         android:name="com.selflearning.starcover.ui.sing.SingFragment"
         android:label="Sing"
-        tools:layout="@layout/sing_fragment" />
+        tools:layout="@layout/fragment_sing" />
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.selflearning.starcover.ui.notifications.NotificationsFragment"
@@ -25,5 +25,5 @@
         android:id="@+id/navigation_profile"
         android:name="com.selflearning.starcover.ui.profile.ProfileFragment"
         android:label="You"
-        tools:layout="@layout/profile_fragment" />
+        tools:layout="@layout/fragment_profile" />
 </navigation>
