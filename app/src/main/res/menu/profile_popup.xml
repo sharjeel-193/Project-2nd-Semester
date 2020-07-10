@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/remove_from_profile"
+        android:title="Remove" />
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/show_everyone_profile"
+            android:title="Show to everyone"
+            android:checkable="true"
+            />
+        <item
+            android:id="@+id/show_followers_profile"
+            android:title="Show only to Followers"
+            android:checkable="true"
+            />
+        <item
+            android:id="@+id/ahow_none_profile"
+            android:title="Don't show to anyone"
+            android:checkable="true"
+            />
+
+
+    </group>
+
+
+</menu>

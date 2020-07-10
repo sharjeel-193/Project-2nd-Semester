@@ -32,7 +32,7 @@ public class UploadingActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.recording_fragment,recordFrag).commit();
 
-        ImageView backBtn = (ImageView) findViewById(R.id.recording_back_btn);
+        ImageView backBtn = (ImageView) findViewById(R.id.toolbar_back_btn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

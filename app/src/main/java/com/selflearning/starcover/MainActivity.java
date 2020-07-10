@@ -1,5 +1,6 @@
 package com.selflearning.starcover;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,6 +44,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 TextView logo = (TextView) findViewById(R.id.profile_name);
                 logo.setVisibility(View.GONE);
+            }
+        });
+
+        ImageView settingBtn = findViewById(R.id.settings_button);
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
+                startActivity(intent);
             }
         });
 

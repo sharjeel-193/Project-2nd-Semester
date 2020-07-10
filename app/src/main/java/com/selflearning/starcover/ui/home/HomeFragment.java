@@ -68,7 +68,6 @@ public class HomeFragment extends Fragment {
 
         //END OF UI TEST CODE
 
-
         MyHomeAdapter myAdapter = new MyHomeAdapter(getActivity(),coverList);
         coversHomeView.setAdapter(myAdapter);
 

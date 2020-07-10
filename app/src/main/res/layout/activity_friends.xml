@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".friends.FriendsActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/secondary_toolbar"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:elevation="10dp"
+        android:background="@color/colorAccent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/toolbar_back_btn"
+                android:tint="@color/colorPrimaryDark"
+                app:srcCompat="@drawable/abc_vector_test" />
+
+            <TextView
+                android:id="@+id/recording_user_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="User ID"
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:fontFamily="@font/amarante" />
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:padding="5dp"
+                app:srcCompat="@drawable/splash_logo" />
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+<!--        <TextView-->
+<!--            android:id="@+id/title"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:minHeight="?actionBarSize"-->
+<!--            android:padding="@dimen/appbar_padding"-->
+<!--            android:text="@string/app_name"-->
+<!--            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />-->
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</LinearLayout>

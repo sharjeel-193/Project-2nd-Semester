@@ -2,9 +2,11 @@ package com.selflearning.starcover.ui.home;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -79,7 +81,7 @@ public class MyHomeAdapter extends RecyclerView.Adapter<HomeViewHolder>{
     TextView coverLikes;
     CardView cardView;
 
-     public HomeViewHolder(@NonNull View itemView) {
+     public HomeViewHolder(@NonNull final View itemView) {
          super(itemView);
          userDp = (CircleImageView) itemView.findViewById(R.id.user_dp);
          userId = (TextView) itemView.findViewById(R.id.user_id);
@@ -89,5 +91,21 @@ public class MyHomeAdapter extends RecyclerView.Adapter<HomeViewHolder>{
          thumbnail = (ImageView) itemView.findViewById(R.id.cover_thumbnail);
          coverLikes = (TextView) itemView.findViewById(R.id.user_cover_likes);
          cardView = (CardView) itemView.findViewById(R.id.home_cover_card);
+
+         cardView.setOnLongClickListener(new View.OnLongClickListener() {
+             @Override
+             public boolean onLongClick(View view) {
+                 PopupMenu popupMenu = new PopupMenu(cardView.getContext(),itemView);
+                 popupMenu.getMenu().add("Save");
+                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                     @Override
+                     public boolean onMenuItemClick(MenuItem menuItem) {
+                         return false;
+                     }
+                 });
+                 popupMenu.show();
+                 return true;
+             }
+         });
      }
  }

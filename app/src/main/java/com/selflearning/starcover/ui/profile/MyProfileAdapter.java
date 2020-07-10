@@ -1,10 +1,14 @@
 package com.selflearning.starcover.ui.profile;
 
 import android.content.Context;
+import android.view.ContextMenu;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,13 +39,14 @@ public class MyProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProfileViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ProfileViewHolder holder, int position) {
 
         holder.coverThumbnail.setImageResource(R.drawable.thumbnail3);
         holder.coverName.setText(coverList.get(position).getCoverName());
         holder.coverArtist.setText(coverList.get(position).getCoverArtist());
         holder.coverDuration.setText(coverList.get(position).getCoverDuration());
         holder.coverLikes.setText(coverList.get(position).getCoverLikes());
+
     }
 
     @Override
@@ -57,7 +62,7 @@ class ProfileViewHolder extends RecyclerView.ViewHolder{
     CardView cardView;
 
 
-    public ProfileViewHolder(@NonNull View itemView) {
+    public ProfileViewHolder(@NonNull final View itemView) {
         super(itemView);
 
         coverThumbnail = (ImageView) itemView.findViewById(R.id.profile_cover_thumbnail);
@@ -67,5 +72,23 @@ class ProfileViewHolder extends RecyclerView.ViewHolder{
         coverLikes = (TextView) itemView.findViewById(R.id.profile_cover_likes);
         cardView = (CardView) itemView.findViewById(R.id.profile_cover_card);
 
+        cardView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(cardView.getContext(),itemView);
+                popupMenu.getMenuInflater().inflate(R.menu.profile_popup,popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        return false;
+                    }
+                });
+                popupMenu.show();
+                return true;
+            }
+        });
+
     }
+
+
 }

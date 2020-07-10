@@ -3,6 +3,7 @@ package com.selflearning.starcover.ui.profile;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.selflearning.starcover.Logic.Cover;
 import com.selflearning.starcover.R;
+import com.selflearning.starcover.friends.FriendsActivity;
 import com.selflearning.starcover.ui.home.MyHomeAdapter;
 
 import java.util.ArrayList;
@@ -72,6 +74,14 @@ public class ProfileFragment extends Fragment {
 
         MyProfileAdapter myAdapter = new MyProfileAdapter(getActivity(),coverList);
         coversProfileView.setAdapter(myAdapter);
+
+        root.findViewById(R.id.friends_intent).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), FriendsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return root;
     }
