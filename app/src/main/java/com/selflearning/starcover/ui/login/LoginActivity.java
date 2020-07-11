@@ -5,6 +5,7 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.selflearning.starcover.R;
+import com.selflearning.starcover.RegistrationActivity;
 import com.selflearning.starcover.ui.login.LoginViewModel;
 import com.selflearning.starcover.ui.login.LoginViewModelFactory;
 
@@ -42,6 +44,15 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+
+        findViewById(R.id.sign_up_link).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 //        loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
 //            @Override

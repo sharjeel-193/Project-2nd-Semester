@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "699942856321",
+    "firebase_url": "https://starcover.firebaseio.com",
+    "project_id": "starcover",
+    "storage_bucket": "starcover.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699942856321:android:d983e537329c5327304f80",
+        "android_client_info": {
+          "package_name": "com.selflearning.starcover"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "699942856321-4u0m3d595ikk5le3d4vb5fim4c2g422i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpf4eoP00FsqTNHEawBhaPD0TUCTL4HOU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "699942856321-4u0m3d595ikk5le3d4vb5fim4c2g422i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

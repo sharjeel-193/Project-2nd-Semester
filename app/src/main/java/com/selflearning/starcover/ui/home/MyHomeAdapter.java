@@ -70,7 +70,7 @@ public class MyHomeAdapter extends RecyclerView.Adapter<HomeViewHolder>{
         return coverList.size();
     }
 }
- class HomeViewHolder extends RecyclerView.ViewHolder{
+class HomeViewHolder extends RecyclerView.ViewHolder{
 
     CircleImageView userDp;
     TextView userId;
@@ -81,31 +81,33 @@ public class MyHomeAdapter extends RecyclerView.Adapter<HomeViewHolder>{
     TextView coverLikes;
     CardView cardView;
 
-     public HomeViewHolder(@NonNull final View itemView) {
-         super(itemView);
-         userDp = (CircleImageView) itemView.findViewById(R.id.user_dp);
-         userId = (TextView) itemView.findViewById(R.id.user_id);
-         songName = (TextView) itemView.findViewById(R.id.cover_instrumental_name);
-         artistName = (TextView) itemView.findViewById(R.id.cover_instrumental_artist);
-         coverDuration = (TextView) itemView.findViewById(R.id.cover_instrumental_duration);
-         thumbnail = (ImageView) itemView.findViewById(R.id.cover_thumbnail);
-         coverLikes = (TextView) itemView.findViewById(R.id.user_cover_likes);
-         cardView = (CardView) itemView.findViewById(R.id.home_cover_card);
+    public HomeViewHolder(@NonNull final View itemView) {
+        super(itemView);
+        userDp = (CircleImageView) itemView.findViewById(R.id.user_dp);
+        userId = (TextView) itemView.findViewById(R.id.user_id);
+        songName = (TextView) itemView.findViewById(R.id.cover_instrumental_name);
+        artistName = (TextView) itemView.findViewById(R.id.cover_instrumental_artist);
+        coverDuration = (TextView) itemView.findViewById(R.id.cover_instrumental_duration);
+        thumbnail = (ImageView) itemView.findViewById(R.id.cover_thumbnail);
+        coverLikes = (TextView) itemView.findViewById(R.id.user_cover_likes);
+        cardView = (CardView) itemView.findViewById(R.id.home_cover_card);
 
-         cardView.setOnLongClickListener(new View.OnLongClickListener() {
-             @Override
-             public boolean onLongClick(View view) {
-                 PopupMenu popupMenu = new PopupMenu(cardView.getContext(),itemView);
-                 popupMenu.getMenu().add("Save");
-                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                     @Override
-                     public boolean onMenuItemClick(MenuItem menuItem) {
-                         return false;
-                     }
-                 });
-                 popupMenu.show();
-                 return true;
-             }
-         });
-     }
- }
+        cardView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(cardView.getContext(),itemView);
+                popupMenu.getMenu().add("Save");
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        return false;
+                    }
+                });
+                popupMenu.show();
+                return true;
+            }
+        });
+    }
+
+}
+
