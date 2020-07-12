@@ -23,6 +23,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.selflearning.starcover.ui.login.LoginActivity;
 
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -142,10 +144,15 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
     public void errorDialogs() {
-        if (emailF.getText().toString().isEmpty()) {
-            emailF.setError("Please Enter Email Id");
+        String email = "(\\w+)@((gmail)|(hotmail)|(yahoo)|(outlook)).com";
+        Pattern emailPattern = Pattern.compile(email);
+        Matcher emailMatcher = emailPattern.matcher(emailF.getText().toString());
+
+        if (emailMatcher.find()) {
+            emailF.setError("Incorrect email id");
             emailF.requestFocus();
         }
+
         if (userNameF.getText().toString().isEmpty()) {
             userNameF.setError("Please Enter User Name");
             userNameF.requestFocus();
