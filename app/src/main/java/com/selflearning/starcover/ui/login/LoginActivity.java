@@ -1,36 +1,35 @@
 package com.selflearning.starcover.ui.login;
 
-import android.app.Activity;
-
-import androidx.lifecycle.Observer;
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
+import android.text.TextUtils;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.selflearning.starcover.MainActivity;
 import com.selflearning.starcover.R;
 import com.selflearning.starcover.RegistrationActivity;
-import com.selflearning.starcover.ui.login.LoginViewModel;
-import com.selflearning.starcover.ui.login.LoginViewModelFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
+    FirebaseAuth firebaseAuth;
+    FirebaseAuth.AuthStateListener authStateListener;
+    EditText emailF, passwordF;
+    Button loginBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,11 +38,13 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
         getSupportActionBar().hide();
+//
+//        final EditText usernameEditText = (EditText) findViewById(R.id.login_email);
+//        final EditText passwordEditText = (EditText) findViewById(R.id.login_password);
+//        final Button loginButton = (Button) findViewById(R.id.login);
+//        final ProgressBar loadingProgressBar = (ProgressBar) findViewById(R.id.loading);
 
-        final EditText usernameEditText = findViewById(R.id.username);
-        final EditText passwordEditText = findViewById(R.id.password);
-        final Button loginButton = findViewById(R.id.login);
-        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+        findingViewsById();
 
         findViewById(R.id.sign_up_link).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +54,44 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email = emailF.getText().toString().trim();
+                String password = passwordF.getText().toString().trim();
+
+                Toast.makeText(getApplicationContext(),"Button Clicked",Toast.LENGTH_SHORT);
+
+                if (TextUtils.isEmpty(emailF.getText())){
+                    emailF.setError("Please Enter Email Id");
+                    emailF.requestFocus();
+                    return;
+                }
+                if (passwordF.getText().toString().isEmpty()) {
+                    passwordF.setError("Please Type Password");
+                    passwordF.requestFocus();
+                    return;
+                }
+
+                firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(LoginActivity.this,"User Log in",Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
+                        } else {
+                            Toast.makeText(LoginActivity.this,"Error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+
+
 
 //        loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
 //            @Override
@@ -133,11 +172,16 @@ public class LoginActivity extends AppCompatActivity {
 //
 //    private void updateUiWithUser(LoggedInUserView model) {
 //        String welcome = getString(R.string.welcome) + model.getDisplayName();
-//        // TODO : initiate successful logged in experience
 //        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
 //    }
 //
 //    private void showLoginFailed(@StringRes Integer errorString) {
 //        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
 //    }
+
+    public void findingViewsById(){
+        emailF = (EditText) findViewById(R.id.login_email);
+        passwordF = (EditText) findViewById(R.id.login_password);
+        loginBtn = (Button) findViewById(R.id.login);
+    }
 }

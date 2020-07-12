@@ -1,30 +1,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/log_out_btn"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".SettingsActivity">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/recording_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:id="@+id/recording_toolbar"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
-        android:elevation="10dp"
-        android:background="@color/colorAccent">
+        android:background="@color/colorAccent"
+        android:elevation="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <ImageView
+                android:id="@+id/settings_back_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/settings_back_btn"
                 android:tint="@color/colorPrimaryDark"
                 app:srcCompat="@drawable/abc_vector_test" />
 
@@ -33,8 +35,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="User ID"
                 android:gravity="center_horizontal"
+                android:text="User ID"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -60,8 +62,17 @@
         android:textStyle="bold"
         app:fontFamily="@font/actor" />
 
-<!--    <FrameLayout-->
-<!--        android:id="@+id/settings"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent" />-->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:text="Log Out"
+        android:textColor="@color/colorOfText"
+        android:textSize="24sp" />
+
+    <!--    <FrameLayout-->
+    <!--        android:id="@+id/settings"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent" />-->
 </LinearLayout>
