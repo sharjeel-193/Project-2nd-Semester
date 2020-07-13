@@ -17,21 +17,29 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firestore.v1beta1.DocumentRemove;
 import com.selflearning.starcover.ui.login.LoginActivity;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistrationActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
+    FirebaseFirestore firestore;
     EditText userNameF,userIdF,emailF,passwordF,confirmPasswordF,dateOfBirthF;
     RadioButton male,female;
     RadioGroup genderGroup;
     Button signUpBtn;
     DatePickerDialog.OnDateSetListener dateListener;
+    String databaseUserID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +49,7 @@ public class RegistrationActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         firebaseAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
         findingViews();
 
         findViewById(R.id.log_in_link).setOnClickListener(new View.OnClickListener() {
@@ -113,23 +122,32 @@ public class RegistrationActivity extends AppCompatActivity {
                     return;
                 }
 
-                String email = emailF.getText().toString();
-                String userId = userIdF.getText().toString();
-                String userName = userNameF.getText().toString();
+                final String email = emailF.getText().toString();
+                final String userId = userIdF.getText().toString();
+                final String userName = userNameF.getText().toString();
                 String password = passwordF.getText().toString();
-                String DOB = dateOfBirthF.getText().toString();
-                String gender = male.isChecked()?"Male":"Female";
-
-                if (firebaseAuth.getCurrentUser() != null){
-                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-                    finish();
-                }
+                final String DOB = dateOfBirthF.getText().toString();
+                final String gender = male.isChecked()?"Male":"Female";
 
                 firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             Toast.makeText(RegistrationActivity.this,"User Registered",Toast.LENGTH_SHORT).show();
+                            databaseUserID = firebaseAuth.getCurrentUser().getUid();
+                            DocumentReference documentReference = firestore.collection("USERS").document(databaseUserID);
+                            Map<String,Object> user = new HashMap<>();
+                            user.put("Full Name",userName);
+                            user.put("Email",email);
+                            user.put("User ID",userId);
+                            user.put("Gender",gender);
+                            user.put("Date of Birth",DOB);
+                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getApplicationContext(),"User data added",Toast.LENGTH_LONG);
+                                }
+                            });
                             startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                             finish();
                         } else {

@@ -14,7 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.selflearning.starcover.Logic.Cover;
 import com.selflearning.starcover.R;
 import com.selflearning.starcover.friends.FriendsActivity;
@@ -26,6 +33,9 @@ public class ProfileFragment extends Fragment {
 
     private ProfileViewModel profileViewModel;
     private RecyclerView coversProfileView;
+    FirebaseFirestore firestore;
+    FirebaseAuth firebaseAuth;
+    TextView userName;
     List<Cover> coverList;
     Cover cover;
 
@@ -35,6 +45,10 @@ public class ProfileFragment extends Fragment {
         profileViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_profile,container,false);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
+
+        userName = (TextView) root.findViewById(R.id.profile_name);
         coversProfileView =(RecyclerView) root.findViewById(R.id.profile_recycler_view);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
         coversProfileView.setLayoutManager(layoutManager);
@@ -69,6 +83,14 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), FriendsActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        DocumentReference documentReference = firestore.collection("USERS").document(firebaseAuth.getCurrentUser().getUid());
+        documentReference.addSnapshotListener(getActivity(), new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                userName.setText(documentSnapshot.getString("Full Name"));
             }
         });
 

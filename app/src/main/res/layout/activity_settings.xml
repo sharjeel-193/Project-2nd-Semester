@@ -1,7 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/log_out_btn"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -24,7 +23,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/settings_back_btn"
+                android:id="@+id/toolbar_back_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:tint="@color/colorPrimaryDark"
@@ -63,11 +62,20 @@
         app:fontFamily="@font/actor" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/log_out_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginLeft="25dp"
         android:text="Log Out"
+        android:textColor="@color/colorOfText"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/delete_account"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="25dp"
+        android:text="Delete Current Account"
         android:textColor="@color/colorOfText"
         android:textSize="24sp" />
 

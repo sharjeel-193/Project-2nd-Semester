@@ -32,9 +32,10 @@
 
             <TextView
                 android:id="@+id/profile_name"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:maxLines="1"
                 android:text="User Name"
                 android:textColor="@color/colorOfText"
                 android:textSize="24sp"
@@ -46,16 +47,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="-150dp"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
             <TableLayout
+                android:id="@+id/friends_intent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/friends_intent"
-                android:layout_marginLeft="40dp"
                 android:layout_marginTop="30dp"
-                android:gravity="center_horizontal">
+                android:gravity="center_horizontal"
+                android:visibility="visible">
 
                 <TableRow>
 
@@ -131,11 +133,10 @@
         android:id="@+id/profile_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="5dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:paddingBottom="5dp"/>
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp" />
 
 
 </LinearLayout>

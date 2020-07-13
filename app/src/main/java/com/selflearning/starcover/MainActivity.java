@@ -9,6 +9,12 @@ import android.widget.TextView;
 import android.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.selflearning.starcover.ui.home.HomeFragment;
 
 import androidx.annotation.NonNull;
@@ -20,7 +26,13 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import javax.annotation.Nullable;
+
 public class MainActivity extends AppCompatActivity {
+
+    FirebaseAuth firebaseAuth;
+    FirebaseFirestore firestore;
+    TextView toolbarId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +49,20 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
+        toolbarId = findViewById(R.id.toolbar_profile_id);
+
+        String firestoreUserID = firebaseAuth.getCurrentUser().getUid();
+        DocumentReference documentReference = firestore.collection("USERS").document(firebaseAuth.getCurrentUser().getUid());
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                toolbarId.setText(documentSnapshot.getString("User ID"));
+            }
+        });
+
 
         final ImageView searchBtn = (ImageView) findViewById(R.id.search_button);
         searchBtn.setOnClickListener(new View.OnClickListener() {
