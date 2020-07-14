@@ -1,6 +1,8 @@
 package com.selflearning.starcover.uploading;
 
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,7 +23,12 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.selflearning.starcover.R;
 
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
 import java.io.IOException;
+
+import io.grpc.Context;
 
 
 public class UploadFragment extends Fragment {
@@ -59,6 +66,7 @@ public class UploadFragment extends Fragment {
      // declaring and setting oon clicklistener
         imageView=root.findViewById(R.id.upload_player_btn);
         mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
         //stopbutton to stop play
         btnStop=root.findViewById(R.id.btnStop);
@@ -75,22 +83,23 @@ public class UploadFragment extends Fragment {
         totalTime.setBase(getArguments().getLong("DURATION"));
         RecordFragment r=new RecordFragment();
         String recordPath=getActivity().getExternalFilesDir("/").getAbsolutePath();
-        final String file= recordPath + "/" + r.recFile();
+        File f = new File(recordPath);
+        String[] pathnames = f.list();
+        final String file= recordPath + "/" + pathnames[pathnames.length - 1];
         //play image listener
+
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
-
-                    Log.d("Qasim", "File is " + file);
-                    mediaPlayer.setDataSource(file);
+                    FileDescriptor fd = new FileInputStream(file).getFD();
+                    mediaPlayer.setDataSource(fd);
                     mediaPlayer.prepare();
                     mediaPlayer.start();
                        } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-
 
                 }
         });//ended listener

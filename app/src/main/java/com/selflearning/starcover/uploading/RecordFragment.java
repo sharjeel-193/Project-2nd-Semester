@@ -50,9 +50,7 @@ public class RecordFragment extends Fragment {
     int PERMISSION_CODE=21;
     MediaRecorder mediaRecorder;
     MediaPlayer mp;
-    SimpleDateFormat formatter=new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.UK);
-    Date now= new Date();
-    String recordFile ="Recording "+ formatter.format(now)+ ".3gp";
+
 
     public RecordFragment() {
         // Required empty public constructor
@@ -128,15 +126,9 @@ public class RecordFragment extends Fragment {
 
             private void startRecording() {
                 String recordPath=getActivity().getExternalFilesDir("/").getAbsolutePath();
-                Log.d("Qasim", "recordPath:= " + recordPath);
-
-
-
-                Log.d("Qasim", recordFile);
-                Bundle arguments = new Bundle();
-                arguments.putString("path",recordFile);
-                UploadFragment fragment = new UploadFragment();
-                fragment.setArguments(arguments);
+                SimpleDateFormat formatter=new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.UK);
+                Date now= new Date();
+                String recordFile ="Recording "+ formatter.format(now)+ ".3gp";
                 mediaRecorder=new MediaRecorder();
                 mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
                 mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -220,12 +212,6 @@ public class RecordFragment extends Fragment {
 
     public void stopSong(){
         mp.stop();
-    }
-
-
-    //function to return string of audio
-    public String recFile(){
-        return recordFile;
     }
 
 }
