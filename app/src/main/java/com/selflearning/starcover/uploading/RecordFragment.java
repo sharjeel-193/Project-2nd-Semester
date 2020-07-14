@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,9 @@ public class RecordFragment extends Fragment {
     int PERMISSION_CODE=21;
     MediaRecorder mediaRecorder;
     MediaPlayer mp;
-    String recordFile;
+    SimpleDateFormat formatter=new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.UK);
+    Date now= new Date();
+    String recordFile ="Recording "+ formatter.format(now)+ ".3gp";
 
     public RecordFragment() {
         // Required empty public constructor
@@ -125,12 +128,15 @@ public class RecordFragment extends Fragment {
 
             private void startRecording() {
                 String recordPath=getActivity().getExternalFilesDir("/").getAbsolutePath();
+                Log.d("Qasim", "recordPath:= " + recordPath);
 
 
-                SimpleDateFormat formatter=new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.UK);
-                Date now= new Date();
 
-                recordFile="Recording "+ formatter.format(now)+ ".3gp";
+                Log.d("Qasim", recordFile);
+                Bundle arguments = new Bundle();
+                arguments.putString("path",recordFile);
+                UploadFragment fragment = new UploadFragment();
+                fragment.setArguments(arguments);
                 mediaRecorder=new MediaRecorder();
                 mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
                 mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);

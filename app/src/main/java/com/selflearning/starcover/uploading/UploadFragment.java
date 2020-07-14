@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -58,8 +59,7 @@ public class UploadFragment extends Fragment {
      // declaring and setting oon clicklistener
         imageView=root.findViewById(R.id.upload_player_btn);
         mediaPlayer = new MediaPlayer();
-        RecordFragment r=new RecordFragment();
-        final String file=r.recFile();
+
         //stopbutton to stop play
         btnStop=root.findViewById(R.id.btnStop);
          btnStop.setOnClickListener(new View.OnClickListener() {
@@ -73,11 +73,16 @@ public class UploadFragment extends Fragment {
         songName.setText(getArguments().getString("SONG"));
         artistName.setText(getArguments().getString("ARTIST"));
         totalTime.setBase(getArguments().getLong("DURATION"));
+        RecordFragment r=new RecordFragment();
+        String recordPath=getActivity().getExternalFilesDir("/").getAbsolutePath();
+        final String file= recordPath + "/" + r.recFile();
         //play image listener
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
+
+                    Log.d("Qasim", "File is " + file);
                     mediaPlayer.setDataSource(file);
                     mediaPlayer.prepare();
                     mediaPlayer.start();

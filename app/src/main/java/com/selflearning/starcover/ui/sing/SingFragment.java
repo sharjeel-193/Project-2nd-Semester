@@ -63,7 +63,7 @@ import java.util.List;
 
         instrumentalsView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         instrumentalList = new ArrayList<>();
-
+        Log.d("Qasim", "Size: " + songUrls.size());
         for(int i = 0; i < songNames.size(); i++) {
             String url = "";
             if (i >= songUrls.size())
