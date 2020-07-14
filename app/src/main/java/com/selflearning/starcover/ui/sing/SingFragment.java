@@ -1,5 +1,6 @@
 package com.selflearning.starcover.ui.sing;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -33,7 +34,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SingFragment extends Fragment {
+     public class    SingFragment extends Fragment {
 
     private SingViewModel singViewModel;
     private RecyclerView instrumentalsView;
@@ -72,6 +73,7 @@ public class SingFragment extends Fragment {
             if (i % 2 == 0 )
                 instrumentalList.add(new Instrumental(songNames.get(i), "Artist",
                         R.drawable.thumbnail, 23, url));
+
             else
                 instrumentalList.add(new Instrumental(songNames.get(i), "Artist",
                         R.drawable.thumbnail3, 67, url));
@@ -97,4 +99,5 @@ public class SingFragment extends Fragment {
         return root;
     }
 
-}
+
+     }
