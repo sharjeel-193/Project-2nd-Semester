@@ -215,4 +215,11 @@ public class RecordFragment extends Fragment {
     public void stopSong(){
         mp.stop();
     }
+
+
+    //function to return string of audio
+    public String recFile(){
+        return recordFile;
+    }
+
 }

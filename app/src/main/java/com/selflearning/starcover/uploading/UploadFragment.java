@@ -1,27 +1,39 @@
 package com.selflearning.starcover.uploading;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.selflearning.starcover.R;
 
+import java.io.IOException;
+
 
 public class UploadFragment extends Fragment {
-
+    //media player added
+    MediaPlayer mediaPlayer;
     SeekBar seekBar;
     Chronometer runnTime, totalTime;
     TextView songName, artistName;
     FloatingActionButton endBtn, againBtn, uploadBtn;
+    //play icon
+    ImageView imageView;
+    //button to stop playing added
+    Button btnStop;
 
     public UploadFragment() {
         // Required empty public constructor
@@ -43,10 +55,40 @@ public class UploadFragment extends Fragment {
         totalTime = root.findViewById(R.id.upload_total_time_cover);
         songName = root.findViewById(R.id.upload_cover_name);
         artistName = root.findViewById(R.id.upload_cover_artist);
+     // declaring and setting oon clicklistener
+        imageView=root.findViewById(R.id.upload_player_btn);
+        mediaPlayer = new MediaPlayer();
+        RecordFragment r=new RecordFragment();
+        final String file=r.recFile();
+        //stopbutton to stop play
+        btnStop=root.findViewById(R.id.btnStop);
+         btnStop.setOnClickListener(new View.OnClickListener() {
+             @Override
+            public void onClick(View view) {
+            mediaPlayer.stop();
+            getActivity().finish();
+             }
+           });//ended
 
         songName.setText(getArguments().getString("SONG"));
         artistName.setText(getArguments().getString("ARTIST"));
         totalTime.setBase(getArguments().getLong("DURATION"));
+        //play image listener
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    mediaPlayer.setDataSource(file);
+                    mediaPlayer.prepare();
+                    mediaPlayer.start();
+                       } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+
+                }
+        });//ended listener
 
         endBtn = root.findViewById(R.id.end_recording_btn);
         endBtn.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +97,7 @@ public class UploadFragment extends Fragment {
                         getActivity().finish();
                     }
                 });
+
         againBtn = root.findViewById(R.id.again_recording_btn);
         againBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +114,8 @@ public class UploadFragment extends Fragment {
 
             }
         });
+
+
         uploadBtn = root.findViewById(R.id.upload_recording_btn);
         uploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,4 +126,6 @@ public class UploadFragment extends Fragment {
 
         return root;
     }
+
+
 }
