@@ -40,7 +40,7 @@ public class MySingAdapter extends RecyclerView.Adapter<SingViewHolder> implemen
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final SingViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final SingViewHolder holder, final int position) {
 
         holder.instrumentalThumbnai.setImageResource(instrumentalList.get(position).getInstrumentalImageId());
         holder.instrumentalName.setText(instrumentalList.get(position).getSongName());
@@ -53,6 +53,7 @@ public class MySingAdapter extends RecyclerView.Adapter<SingViewHolder> implemen
                 Intent intent = new Intent(context,UploadingActivity.class);
                 intent.putExtra("SONG",holder.instrumentalName.getText());
                 intent.putExtra("ARTIST",holder.instrumentalArtist.getText());
+                intent.putExtra("url", instrumentalList.get(position).getUrl());
                 context.startActivity(intent);
             }
         });

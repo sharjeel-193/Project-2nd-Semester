@@ -194,9 +194,11 @@ public class RecordFragment extends Fragment {
     }
     public void playSong() {
 
+        String url = getArguments().getString("url");
+
         try {
             //here is only one song url, insert code for puttong url of selected song
-        mp.setDataSource("https://firebasestorage.googleapis.com/v0/b/starcover.appspot.com/o/music%2FChad_Crouch_-_Organisms.mp3?alt=media&token=f715a354-0637-42b9-860e-f90fce7e53f4");
+        mp.setDataSource(url);
         mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
@@ -208,17 +210,9 @@ public class RecordFragment extends Fragment {
         }catch(IOException e){
             e.printStackTrace();
         }
+    }
 
-
-
-
-}
     public void stopSong(){
         mp.stop();
-
-
-}
-
-
-
+    }
 }

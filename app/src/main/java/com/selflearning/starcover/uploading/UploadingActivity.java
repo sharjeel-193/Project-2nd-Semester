@@ -22,12 +22,14 @@ public class UploadingActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         String song = extras.getString("SONG");
         String artist = extras.getString("ARTIST");
+        String url = extras.getString("url");
 //
         Fragment recordFrag = new RecordFragment();
 
         Bundle data = new Bundle();
         data.putString("SONG",song);
         data.putString("ARTIST",artist);
+        data.putString("url", url);
         recordFrag.setArguments(data);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.recording_fragment,recordFrag).commit();
