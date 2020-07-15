@@ -109,7 +109,6 @@ public class UploadFragment extends Fragment {
         String[] pathnames = f.list();
         final String file= recordPath + "/" + pathnames[pathnames.length - 1];
         //play image listener
-        // Comment for muzammil bsdka
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override

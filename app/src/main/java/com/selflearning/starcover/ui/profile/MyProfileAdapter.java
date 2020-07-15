@@ -1,10 +1,14 @@
 package com.selflearning.starcover.ui.profile;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.view.ContextMenu;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,12 +22,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.selflearning.starcover.Logic.Cover;
 import com.selflearning.starcover.R;
 
+import java.io.IOException;
 import java.util.List;
 
 public class MyProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder>{
 
     private Context context;
     private List<Cover> coverList;
+    MediaPlayer mplayer;
 
     public MyProfileAdapter(Context context, List<Cover> coverList) {
         this.context = context;
@@ -38,14 +44,40 @@ public class MyProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder>{
         return new ProfileViewHolder(view);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
-    public void onBindViewHolder(@NonNull final ProfileViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ProfileViewHolder holder, final int position) {
 
         holder.coverThumbnail.setImageResource(R.drawable.thumbnail3);
         holder.coverName.setText(coverList.get(position).getCoverName());
         holder.coverArtist.setText(coverList.get(position).getCoverArtist());
         holder.coverDuration.setText(coverList.get(position).getCoverDuration());
         holder.coverLikes.setText(coverList.get(position).getCoverLikes());
+        holder.cardView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                mplayer = new MediaPlayer();
+                Uri uri = coverList.get(position).getUri();
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+
+                    try {
+                        mplayer.setDataSource(String.valueOf(uri));
+                        mplayer.prepare();
+                        mplayer.start();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    return true;
+                }
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    mplayer.stop();
+
+                }
+
+                return false;
+            }
+        });
 
     }
 

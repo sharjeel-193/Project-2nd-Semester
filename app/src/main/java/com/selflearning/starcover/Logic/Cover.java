@@ -48,6 +48,10 @@ public class Cover {
         this.uri=uri;
     }
 
+    public void setUri(Uri uri) {
+        this.uri = uri;
+    }
+
     public String getUserId() {
         return userId;
     }
