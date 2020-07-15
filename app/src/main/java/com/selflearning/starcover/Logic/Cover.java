@@ -1,5 +1,7 @@
 package com.selflearning.starcover.Logic;
 
+import android.net.Uri;
+
 public class Cover {
     //Original code
 //    private UserProfile user;
@@ -33,8 +35,9 @@ public class Cover {
     private String coverDuration;
     private String coverLikes;
     private int coverThumbnail;
+    Uri uri;
 
-    public Cover(String userId, int userDp, String coverName, String coverArtist, String coverDuration, String coverLikes, int coverThumbnail) {
+    public Cover(String userId, int userDp, String coverName, String coverArtist, String coverDuration, String coverLikes, int coverThumbnail,Uri uri) {
         this.userId = userId;
         this.userDp = userDp;
         this.coverName = coverName;
@@ -42,6 +45,11 @@ public class Cover {
         this.coverDuration = coverDuration;
         this.coverLikes = coverLikes;
         this.coverThumbnail = coverThumbnail;
+        this.uri=uri;
+    }
+
+    public void setUri(Uri uri) {
+        this.uri = uri;
     }
 
     public String getUserId() {
@@ -66,6 +74,10 @@ public class Cover {
 
     public String getCoverLikes() {
         return coverLikes;
+    }
+
+    public Uri getUri() {
+        return uri;
     }
 
     public int getCoverThumbnail() {
