@@ -3,6 +3,7 @@ package com.selflearning.starcover.ui.profile;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -12,28 +13,28 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.selflearning.starcover.Logic.Cover;
 import com.selflearning.starcover.R;
 import com.selflearning.starcover.friends.FriendsActivity;
+import com.selflearning.starcover.uploading.RecordFragment;
 
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,26 +74,20 @@ public class ProfileFragment extends Fragment {
         Glide.with(this)
                 .load(pathReference)
                 .into(profileDp);
-        
 
-        //UI TESTING CODE
+        coverList = new ArrayList<>();
+        //getting newly recorded song
+       String recordPath=getActivity().getExternalFilesDir("/").getAbsolutePath();
+        File file = new File(recordPath);
+        String[] fileNames = file.list();
+        for (String name : fileNames) {
+            Uri uri = Uri.fromFile(new File(recordPath + "/" + name));
+            cover = new Cover("qasim_123",R.drawable.image,name.substring(11),"Artist","6 : 33","567",R.drawable.thumbnail,uri);
+            coverList.add(cover);
 
-        cover = new Cover("qasim_123",R.drawable.image,"My Song","Artist","6 : 33","567",R.drawable.thumbnail);
-        coverList.add(cover);
-        cover = new Cover("sharjeel-123",R.drawable.image,"My Song","Artist","6 : 33","567",R.drawable.thumbnail2);
-        coverList.add(cover);
-        cover = new Cover("qasim_123",R.drawable.image,"My Song","Artist","6 : 33","567",R.drawable.thumbnail);
-        coverList.add(cover);
-        cover = new Cover("qasim_123",R.drawable.image,"My Song","Artist","6 : 33","567",R.drawable.thumbnail);
-        coverList.add(cover);
-        cover = new Cover("qasim_123",R.drawable.image,"My Song","Artist","6 : 33","567",R.drawable.thumbnail);
-        coverList.add(cover);
-        cover = new Cover("qasim_123",R.drawable.image,"My Song","Artist","6 : 33","567",R.drawable.thumbnail);
-        coverList.add(cover);
-        cover = new Cover("qasim_123",R.drawable.image,"My Song","Artist","6 : 33","567",R.drawable.thumbnail);
-        coverList.add(cover);
+        }
+        //END OF UI CODE
 
-        //END OF UI TEST CODE
 
         MyProfileAdapter myAdapter = new MyProfileAdapter(getActivity(),coverList);
         coversProfileView.setAdapter(myAdapter);
@@ -105,20 +100,14 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        DocumentReference documentReference = firestore.collection("USERS").document(firebaseAuth.getCurrentUser().getUid());
-        documentReference.addSnapshotListener(getActivity(), new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
-                userName.setText(documentSnapshot.getString("Full Name"));
-//                profileDp.setImageBitmap(documentSnapshot.);
-            }
-        });
-
         return root;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //ONTOUCH listener for button
+
     }
+
 }
