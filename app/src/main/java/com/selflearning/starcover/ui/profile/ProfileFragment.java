@@ -70,21 +70,6 @@ public class ProfileFragment extends Fragment {
         // Set profile photo
         StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
         StorageReference pathReference = mStorageRef.child("profile_images/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + ".jpg");
-        /*mStorageRef.child("profile_images/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                // Got the download URL for 'users/me/profile.png'
-                profileDp.setImageBitmap(uri);
-            }
-
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-                Log.d("Qasim", "Image download error");
-            }
-        });*/
-
         Glide.with(this)
                 .load(pathReference)
                 .into(profileDp);
