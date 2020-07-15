@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class MyProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder>{
-
+     boolean isPlaying = false;
     private Context context;
     private List<Cover> coverList;
     MediaPlayer mplayer;
@@ -53,22 +53,40 @@ public class MyProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder>{
         holder.coverArtist.setText(coverList.get(position).getCoverArtist());
         holder.coverDuration.setText(coverList.get(position).getCoverDuration());
         holder.coverLikes.setText(coverList.get(position).getCoverLikes());
-        holder.cardView.setOnTouchListener(new View.OnTouchListener() {
+        mplayer = new MediaPlayer();
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                mplayer = new MediaPlayer();
-                Uri uri = coverList.get(position).getUri();
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+            public void onClick(View view) {
 
+
+                Uri uri = coverList.get(position).getUri();
+                if (isPlaying) {
+                    mplayer.stop();
+                    isPlaying = false;
+                }
+                else{
                     try {
                         mplayer.setDataSource(String.valueOf(uri));
                         mplayer.prepare();
                         mplayer.start();
+                        isPlaying = true;
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    return true;
+
                 }
+               // isPlaying = !isPlaying;
+                }
+
+        });
+       /* holder.cardView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+
+
 
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     mplayer.stop();
@@ -77,7 +95,7 @@ public class MyProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder>{
 
                 return false;
             }
-        });
+        });*/
 
     }
 

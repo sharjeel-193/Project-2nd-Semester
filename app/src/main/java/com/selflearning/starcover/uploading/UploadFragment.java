@@ -52,9 +52,8 @@ public class UploadFragment extends Fragment {
     FloatingActionButton endBtn, againBtn, uploadBtn;
     //play icon
     ImageView imageView;
-    //button to stop playing added
-    Button btnStop;
 
+    boolean isPlaying=false;
     StorageReference storage;
     DatabaseReference refAudio;
 
@@ -90,14 +89,7 @@ public class UploadFragment extends Fragment {
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
         //stopbutton to stop play
-        btnStop=root.findViewById(R.id.btnStop);
-         btnStop.setOnClickListener(new View.OnClickListener() {
-             @Override
-            public void onClick(View view) {
-            mediaPlayer.stop();
-            getActivity().finish();
-             }
-           });//ended
+
 
         songName.setText(getArguments().getString("SONG"));
         artistName.setText(getArguments().getString("ARTIST"));
@@ -113,15 +105,21 @@ public class UploadFragment extends Fragment {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    FileDescriptor fd = new FileInputStream(file).getFD();
-                    mediaPlayer.setDataSource(fd);
-                    mediaPlayer.prepare();
-                    mediaPlayer.start();
-                       } catch (IOException e) {
-                    e.printStackTrace();
+                if(isPlaying){
+                    mediaPlayer.stop();
+                    isPlaying=false;
                 }
-
+                else {
+                    try {
+                        FileDescriptor fd = new FileInputStream(file).getFD();
+                        mediaPlayer.setDataSource(fd);
+                        mediaPlayer.prepare();
+                        mediaPlayer.start();
+                        isPlaying=true;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 }
         });//ended listener
 
