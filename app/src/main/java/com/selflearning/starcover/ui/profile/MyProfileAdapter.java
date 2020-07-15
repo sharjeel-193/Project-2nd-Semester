@@ -61,7 +61,8 @@ public class MyProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder>{
 
                 Uri uri = coverList.get(position).getUri();
                 if (isPlaying) {
-                    mplayer.stop();
+                    // mplayer.stop();
+                    mplayer.reset();
                     isPlaying = false;
                 }
                 else{
