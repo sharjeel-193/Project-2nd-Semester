@@ -33,12 +33,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.google.firestore.v1beta1.DocumentRemove;
+// import com.google.firestore.v1beta1.DocumentRemove;
 import com.selflearning.starcover.ui.login.LoginActivity;
 
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -83,6 +84,8 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 createUserAccount();
+                Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -162,8 +165,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 if (task.isSuccessful()){
                     Toast.makeText(RegistrationActivity.this,"User Registered",Toast.LENGTH_SHORT).show();
                     updateUserInfo();
-                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-                    finish();
                 } else {
                     Toast.makeText(RegistrationActivity.this,"Error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
 
@@ -195,9 +196,8 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
     public void settingUpProfilePicture(Uri imageUri){
-        StorageReference reference = FirebaseStorage.getInstance().getReference().child("profile_photos");
+        StorageReference reference = FirebaseStorage.getInstance().getReference().child("profile_images/");
         final StorageReference imagePath = reference.child(imageUri.getLastPathSegment());
-
         imagePath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -207,7 +207,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
                                 .setPhotoUri(uri)
                                 .build();
-                        firebaseAuth.getCurrentUser().updateProfile(profileUpdate);
+                        Objects.requireNonNull(firebaseAuth.getCurrentUser()).updateProfile(profileUpdate);
                     }
                 });
             }
