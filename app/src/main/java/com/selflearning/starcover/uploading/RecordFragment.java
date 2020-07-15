@@ -1,15 +1,21 @@
 package com.selflearning.starcover.uploading;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +28,14 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.selflearning.starcover.R;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import io.gresse.hugo.vumeterlibrary.VuMeterView;
 
-public class
-RecordFragment extends Fragment {
+public class RecordFragment extends Fragment {
 
     long timeWhenStopped = 0;
     boolean isRecording = false;
@@ -36,7 +46,10 @@ RecordFragment extends Fragment {
     FloatingActionButton recordingBtn;
     TextView songName, aartistName;
     Button finishBtn;
-
+    String recordPermission= Manifest.permission.RECORD_AUDIO;
+    int PERMISSION_CODE=21;
+    MediaRecorder mediaRecorder;
+    MediaPlayer mp;
 
     public RecordFragment() {
         // Required empty public constructor
@@ -75,23 +88,69 @@ RecordFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                if (!isRecording){
-                    if (timeWhenStopped == 0) {
-                        startChronometer();
-                    } else {
-                        resumeChronometer();
-                    }
+                if (!isRecording) {
+                    if (checkPermissions()){
+
+                        startRecording();
+
+                        if (timeWhenStopped == 0) {
+                            startChronometer();
+                        } else {
+                            resumeChronometer();
+                        }
                     meterView.resume(true);
                     isRecording = !isRecording;
                     recordingBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimaryDark)));
                     recordingBtn.setImageResource(R.drawable.ic_mic_light);
-                } else {
+                }
+            }else {
+                    //stop recording
+                    stopSong();
+                    stopRecording();
+
                     pauseChronometer();
                     meterView.pause();
                     isRecording = !isRecording;
                     recordingBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
                     recordingBtn.setImageResource(R.drawable.ic_mic_dark);
                 }
+            }
+
+            private void stopRecording() {
+                mediaRecorder.stop();
+                mediaRecorder=null;
+
+            }
+
+            public void startRecording() {
+                String recordPath=getActivity().getExternalFilesDir("/").getAbsolutePath();
+                SimpleDateFormat formatter=new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.UK);
+                Date now= new Date();
+                String recordFile ="Recording "+ formatter.format(now)+ ".3gp";
+
+                mediaRecorder=new MediaRecorder();
+                mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                //this is the path to save the song externally, make changes to upload it as well.
+                mediaRecorder.setOutputFile(recordPath+ "/" + recordFile);
+                mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+                mp=new MediaPlayer();
+
+                try {
+                    mediaRecorder.prepare();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                mediaRecorder.start();
+                playSong();
+            }
+
+            private boolean checkPermissions() {
+                if(ActivityCompat.checkSelfPermission(getContext(), recordPermission)== PackageManager.PERMISSION_GRANTED ){
+                    return true;
+                }
+                ActivityCompat.requestPermissions(getActivity(),new String[]{recordPermission},PERMISSION_CODE);
+                return false;
             }
         });
 
@@ -130,8 +189,28 @@ RecordFragment extends Fragment {
         chronometer.stop();
         timeWhenStopped = SystemClock.elapsedRealtime() - chronometer.getBase();
     }
+    public void playSong() {
 
+        String url = getArguments().getString("url");
 
+        try {
+            //here is only one song url, insert code for puttong url of selected song
+        mp.setDataSource(url);
+        mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                mediaPlayer.start();
+            }
+        });
 
+        mp.prepare();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void stopSong(){
+        mp.stop();
+    }
 
 }
