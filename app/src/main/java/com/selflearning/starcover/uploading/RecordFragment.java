@@ -35,7 +35,8 @@ import java.util.Locale;
 
 import io.gresse.hugo.vumeterlibrary.VuMeterView;
 
-public class RecordFragment extends Fragment {
+public class
+RecordFragment extends Fragment {
 
     long timeWhenStopped = 0;
     boolean isRecording = false;
