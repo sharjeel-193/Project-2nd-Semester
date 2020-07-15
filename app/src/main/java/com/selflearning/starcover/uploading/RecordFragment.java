@@ -24,7 +24,8 @@ import com.selflearning.starcover.R;
 
 import io.gresse.hugo.vumeterlibrary.VuMeterView;
 
-public class RecordFragment extends Fragment {
+public class
+RecordFragment extends Fragment {
 
     long timeWhenStopped = 0;
     boolean isRecording = false;

@@ -29,6 +29,8 @@ import com.selflearning.starcover.friends.FriendsActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ProfileFragment extends Fragment {
 
     private ProfileViewModel profileViewModel;
@@ -38,6 +40,7 @@ public class ProfileFragment extends Fragment {
     TextView userName;
     List<Cover> coverList;
     Cover cover;
+    CircleImageView profileDp;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container,
@@ -49,6 +52,7 @@ public class ProfileFragment extends Fragment {
         firestore = FirebaseFirestore.getInstance();
 
         userName = (TextView) root.findViewById(R.id.profile_name);
+        profileDp = (CircleImageView) root.findViewById(R.id.profile_photo);
         coversProfileView =(RecyclerView) root.findViewById(R.id.profile_recycler_view);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
         coversProfileView.setLayoutManager(layoutManager);
@@ -91,6 +95,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
                 userName.setText(documentSnapshot.getString("Full Name"));
+//                profileDp.setImageBitmap(documentSnapshot.);
             }
         });
 

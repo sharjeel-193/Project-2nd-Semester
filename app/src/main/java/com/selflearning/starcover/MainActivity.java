@@ -65,13 +65,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         final ImageView searchBtn = (ImageView) findViewById(R.id.search_button);
-        searchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TextView logo = (TextView) findViewById(R.id.profile_name);
-                logo.setVisibility(View.GONE);
-            }
-        });
+//        searchBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                TextView logo = (TextView) findViewById(R.id.profile_name);
+//                logo.setVisibility(View.GONE);
+//            }
+//        });
 
         ImageView settingBtn = findViewById(R.id.settings_button);
         settingBtn.setOnClickListener(new View.OnClickListener() {
