@@ -3,6 +3,7 @@ package com.selflearning.starcover.ui.profile;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -13,8 +14,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.selflearning.starcover.Logic.Cover;
 import com.selflearning.starcover.R;
@@ -34,7 +37,11 @@ public class ProfileFragment extends Fragment {
     private RecyclerView coversProfileView;
     List<Cover> coverList;
     Cover cover;
-    String name;
+    //made uri global
+    Uri uri;
+//added button and player
+    Button ppButton;
+    MediaPlayer mplayer;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container,
@@ -46,35 +53,24 @@ public class ProfileFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
         coversProfileView.setLayoutManager(layoutManager);
 
+        //button attached with recycler button
+        ppButton = root.findViewById(R.id.profile_player_button);
+
+
+
         coverList = new ArrayList<>();
         //getting newly recorded song
        String recordPath=getActivity().getExternalFilesDir("/").getAbsolutePath();
-
-
-
-        //UI TESTING CODE
-
         File file = new File(recordPath);
         String[] fileNames = file.list();
         for (String name : fileNames) {
-            Uri uri = Uri.fromFile(new File(recordPath + "/" + name));
+             uri = Uri.fromFile(new File(recordPath + "/" + name));
             cover = new Cover("qasim_123",R.drawable.image,name.substring(11),"Artist","6 : 33","567",R.drawable.thumbnail,uri);
             coverList.add(cover);
+
         }
+        //END OF UI CODE
 
-       /*cover = new Cover("sharjeel-123",R.drawable.image,"My Song","Artist","6 : 33","567",R.drawable.thumbnail2,uri);
-        coverList.add(cover);
-        coverList.add(cover);
-        cover = new Cover("qasim_123",R.drawable.image,"My Song","Artist","6 : 33","567",R.drawable.thumbnail);
-        coverList.add(cover);
-        cover = new Cover("qasim_123",R.drawable.image,"My Song","Artist","6 : 33","567",R.drawable.thumbnail);
-        coverList.add(cover);
-        cover = new Cover("qasim_123",R.drawable.image,"My Song","Artist","6 : 33","567",R.drawable.thumbnail);
-        coverList.add(cover);
-        cover = new Cover("qasim_123",R.drawable.image,"My Song","Artist","6 : 33","567",R.drawable.thumbnail);
-        coverList.add(cover);*/
-
-        //END OF UI TEST CODE
 
         MyProfileAdapter myAdapter = new MyProfileAdapter(getActivity(),coverList);
         coversProfileView.setAdapter(myAdapter);
@@ -93,5 +89,33 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //ONTOUCH listener for button
+     /*   ppButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                mplayer = new MediaPlayer();
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+
+                    try {
+                        mplayer.setDataSource(String.valueOf(uri));
+                        mplayer.prepare();
+                        mplayer.start();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    return true;
+                }
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    mplayer.stop();
+
+                }
+
+                return false;
+
+
+            }
+        });*/
     }
+
 }

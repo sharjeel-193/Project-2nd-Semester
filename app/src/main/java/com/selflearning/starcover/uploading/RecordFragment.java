@@ -50,7 +50,7 @@ public class RecordFragment extends Fragment {
     int PERMISSION_CODE=21;
     MediaRecorder mediaRecorder;
     MediaPlayer mp;
-  
+
     public RecordFragment() {
         // Required empty public constructor
     }
