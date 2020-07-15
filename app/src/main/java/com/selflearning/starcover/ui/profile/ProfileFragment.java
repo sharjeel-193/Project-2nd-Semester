@@ -73,6 +73,7 @@ public class ProfileFragment extends Fragment {
         Glide.with(this)
                 .load(pathReference)
                 .into(profileDp);
+        
 
         //UI TESTING CODE
 

@@ -203,14 +203,14 @@ public class RegistrationActivity extends AppCompatActivity {
         imagePath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                imagePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
-                                .setPhotoUri(uri).build();
-                        Objects.requireNonNull(firebaseAuth.getCurrentUser()).updateProfile(profileUpdate);
-                    }
-                });
+//                imagePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                    @Override
+//                    public void onSuccess(Uri uri) {
+//                        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
+//                                .setPhotoUri(uri).build();
+//                        Objects.requireNonNull(firebaseAuth.getCurrentUser()).updateProfile(profileUpdate);
+//                    }
+//                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

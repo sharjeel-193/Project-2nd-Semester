@@ -14,6 +14,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.selflearning.starcover.ui.login.LoginActivity;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -61,20 +63,13 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-                firestore.collection("USERS").document(currentUser.getUid()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            Toast.makeText(getApplicationContext(),"User data also delted",Toast.LENGTH_LONG);
-                        } else {
-                            Toast.makeText(getApplicationContext(),"Error in data deleteion",Toast.LENGTH_LONG);
-                        }
-                    }
-                });
+                final String autoId = currentUser.getUid();
+
                 currentUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
+                            deleteUserData(autoId);
                             Intent i = new Intent(getApplicationContext(), LoginActivity.class);        // Specify any activity here e.g. home or splash or login etc
                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -94,10 +89,20 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
-    public static class SettingsFragment extends PreferenceFragmentCompat {
-        @Override
-        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-            setPreferencesFromResource(R.xml.root_preferences, rootKey);
-        }
+
+    public void deleteUserData(String id){
+        firestore.collection("USERS").document(id).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(getApplicationContext(),"User data also delted",Toast.LENGTH_LONG);
+                } else {
+                    Toast.makeText(getApplicationContext(),"Error in data deleteion",Toast.LENGTH_LONG);
+                }
+            }
+        });
+        StorageReference mStorageRef = FirebaseStorage.getInstance().getReference().child("profile_images/" + id + ".jpg");
+        mStorageRef.delete();
     }
+
 }
