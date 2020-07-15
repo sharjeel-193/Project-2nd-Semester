@@ -50,8 +50,7 @@ public class RecordFragment extends Fragment {
     int PERMISSION_CODE=21;
     MediaRecorder mediaRecorder;
     MediaPlayer mp;
-
-
+  
     public RecordFragment() {
         // Required empty public constructor
     }
@@ -124,11 +123,12 @@ public class RecordFragment extends Fragment {
 
             }
 
-            private void startRecording() {
+            public void startRecording() {
                 String recordPath=getActivity().getExternalFilesDir("/").getAbsolutePath();
                 SimpleDateFormat formatter=new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.UK);
                 Date now= new Date();
                 String recordFile ="Recording "+ formatter.format(now)+ ".3gp";
+
                 mediaRecorder=new MediaRecorder();
                 mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
                 mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
