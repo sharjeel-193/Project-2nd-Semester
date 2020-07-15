@@ -50,15 +50,20 @@ public class ProfileFragment extends Fragment {
         //getting newly recorded song
        String recordPath=getActivity().getExternalFilesDir("/").getAbsolutePath();
 
-        Uri uri = Uri.fromFile(new File(recordPath));
+
 
         //UI TESTING CODE
 
-        cover = new Cover("qasim_123",R.drawable.image,recordPath,"Artist","6 : 33","567",R.drawable.thumbnail,uri);
+        File file = new File(recordPath);
+        String[] fileNames = file.list();
+        for (String name : fileNames) {
+            Uri uri = Uri.fromFile(new File(recordPath + "/" + name));
+            cover = new Cover("qasim_123",R.drawable.image,name.substring(11),"Artist","6 : 33","567",R.drawable.thumbnail,uri);
+            coverList.add(cover);
+        }
+
+       /*cover = new Cover("sharjeel-123",R.drawable.image,"My Song","Artist","6 : 33","567",R.drawable.thumbnail2,uri);
         coverList.add(cover);
-       cover = new Cover("sharjeel-123",R.drawable.image,"My Song","Artist","6 : 33","567",R.drawable.thumbnail2,uri);
-        coverList.add(cover);
-      /*   cover = new Cover("qasim_123",R.drawable.image,"My Song","Artist","6 : 33","567",R.drawable.thumbnail);
         coverList.add(cover);
         cover = new Cover("qasim_123",R.drawable.image,"My Song","Artist","6 : 33","567",R.drawable.thumbnail);
         coverList.add(cover);
