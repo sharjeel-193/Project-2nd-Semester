@@ -35,6 +35,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 // import com.google.firestore.v1beta1.DocumentRemove;
 import com.selflearning.starcover.ui.login.LoginActivity;
+import com.selflearning.starcover.ui.profile.ProfileFragment;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -191,13 +192,14 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(getApplicationContext(),"User data added",Toast.LENGTH_LONG);
+                profileDp.setImageURI(imageUri);
                 settingUpProfilePicture(imageUri);
             }
         });
     }
     public void settingUpProfilePicture(Uri imageUri){
         StorageReference reference = FirebaseStorage.getInstance().getReference().child("profile_images/");
-        final StorageReference imagePath = reference.child(imageUri.getLastPathSegment());
+        final StorageReference imagePath = reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid() + ".jpg");
         imagePath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -205,8 +207,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
                         UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
-                                .setPhotoUri(uri)
-                                .build();
+                                .setPhotoUri(uri).build();
                         Objects.requireNonNull(firebaseAuth.getCurrentUser()).updateProfile(profileUpdate);
                     }
                 });
