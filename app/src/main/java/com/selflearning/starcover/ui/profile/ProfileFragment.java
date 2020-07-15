@@ -19,7 +19,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.selflearning.starcover.Logic.Cover;
 import com.selflearning.starcover.R;
 import com.selflearning.starcover.friends.FriendsActivity;
@@ -32,17 +38,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ProfileFragment extends Fragment {
 
     private ProfileViewModel profileViewModel;
     private RecyclerView coversProfileView;
+    FirebaseFirestore firestore;
+    FirebaseAuth firebaseAuth;
+    TextView userName;
     List<Cover> coverList;
     Cover cover;
-    //made uri global
-
-//added button and player
-
-
+    CircleImageView profileDp;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container,
@@ -50,14 +57,23 @@ public class ProfileFragment extends Fragment {
         profileViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_profile,container,false);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
+
+        userName = (TextView) root.findViewById(R.id.profile_name);
+        profileDp = (CircleImageView) root.findViewById(R.id.profile_photo);
         coversProfileView =(RecyclerView) root.findViewById(R.id.profile_recycler_view);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
         coversProfileView.setLayoutManager(layoutManager);
 
-        //button attached with recycler button
+        coverList = new ArrayList<>();
 
-
-
+        // Set profile photo
+        StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference pathReference = mStorageRef.child("profile_images/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + ".jpg");
+        Glide.with(this)
+                .load(pathReference)
+                .into(profileDp);
 
         coverList = new ArrayList<>();
         //getting newly recorded song

@@ -52,7 +52,7 @@
                 android:id="@+id/cover_thumbnail"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                app:srcCompat="@drawable/thumbnail" />
+                app:srcCompat="@drawable/music" />
 
             <TextView
                 android:id="@+id/cover_instrumental_name"
