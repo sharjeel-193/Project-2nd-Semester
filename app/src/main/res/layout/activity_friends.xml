@@ -30,7 +30,7 @@
                 app:srcCompat="@drawable/abc_vector_test" />
 
             <TextView
-                android:id="@+id/recording_user_id"
+                android:id="@+id/toolbar_secondary_od"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

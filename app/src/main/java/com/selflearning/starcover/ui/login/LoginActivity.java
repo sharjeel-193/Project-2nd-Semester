@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
 //                if (loginFormState.getPasswordError() != null) {
 //                    passwordEditText.setError(getString(loginFormState.getPasswordError()));
 //                }
-            }
+    }
 //        });
 
 //        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
@@ -183,5 +183,15 @@ public class LoginActivity extends AppCompatActivity {
         emailF = (EditText) findViewById(R.id.login_email);
         passwordF = (EditText) findViewById(R.id.login_password);
         loginBtn = (Button) findViewById(R.id.login);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            startActivity(intent);
+        }
     }
 }

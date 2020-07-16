@@ -1,7 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/log_out_btn"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -31,7 +30,7 @@
                 app:srcCompat="@drawable/abc_vector_test" />
 
             <TextView
-                android:id="@+id/recording_user_id"
+                android:id="@+id/toolbar_secondary_od"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -63,11 +62,20 @@
         app:fontFamily="@font/actor" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/log_out_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginLeft="25dp"
         android:text="Log Out"
+        android:textColor="@color/colorOfText"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/delete_account"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="25dp"
+        android:text="Delete Account"
         android:textColor="@color/colorOfText"
         android:textSize="24sp" />
 

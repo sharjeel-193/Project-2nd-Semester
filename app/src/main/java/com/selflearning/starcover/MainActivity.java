@@ -13,6 +13,12 @@ import android.widget.Toolbar;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
@@ -20,6 +26,7 @@ import com.selflearning.starcover.ui.home.HomeFragment;
 import com.selflearning.starcover.ui.sing.SingFragment;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -34,14 +41,32 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private StorageReference mStorageRef;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firestore;
 
     ArrayList<String> songNames = new ArrayList<>();
     ArrayList<String> songUrls = new ArrayList<>();
+
+    TextView toolbarId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        toolbarId = (TextView) findViewById(R.id.toolbar_primary_id);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
+
+        String firestoreUserID = firebaseAuth.getCurrentUser().getUid();
+        DocumentReference documentReference = firestore.collection("USERS").document(firebaseAuth.getCurrentUser().getUid());
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                toolbarId.setText(documentSnapshot.getString("User ID"));
+            }
+        });
 
         // Load songs from firebase
         mStorageRef = FirebaseStorage.getInstance().getReference("music");
@@ -74,14 +99,12 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
-
-
         BottomNavigationView navView = findViewById(R.id.nav_view);
         getSupportActionBar().hide();
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home,R.id.navigation_sing, R.id.navigation_notifications, R.id.navigation_profile)
+                R.id.navigation_home, R.id.navigation_sing, R.id.navigation_notifications, R.id.navigation_profile)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
@@ -101,12 +124,10 @@ public class MainActivity extends AppCompatActivity {
         settingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
             }
         });
-
-
 
 
     }
@@ -114,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<String> sendNames() {
         return songNames;
     }
+
     public ArrayList<String> sendUrls() {
         return songUrls;
     }
