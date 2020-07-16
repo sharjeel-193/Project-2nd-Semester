@@ -3,6 +3,7 @@ package com.selflearning.starcover.ui.profile;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -82,7 +83,10 @@ public class ProfileFragment extends Fragment {
         String[] fileNames = file.list();
         for (String name : fileNames) {
             Uri uri = Uri.fromFile(new File(recordPath + "/" + name));
-            cover = new Cover("qasim_123",R.drawable.image,name.substring(11),"Artist","6 : 33","567",R.drawable.thumbnail,uri);
+            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+            retriever.setDataSource(getContext(),uri);
+            String duration = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+            cover = new Cover("qasim_123",R.drawable.image,name.substring(29,name.length()),"Artist",duration+" sec","567",R.drawable.thumbnail,uri);
             coverList.add(cover);
 
         }

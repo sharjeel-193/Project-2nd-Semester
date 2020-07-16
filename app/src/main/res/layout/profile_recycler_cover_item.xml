@@ -38,6 +38,7 @@
                     android:id="@+id/profile_cover_song"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxLines="2"
                     android:text="Song Name"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp"
@@ -47,7 +48,6 @@
                     android:id="@+id/profile_cover_artist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Artist Name"
                     android:textColor="@color/cardview_dark_background"
                     android:textSize="12sp" />
 
@@ -78,10 +78,10 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical|end">
+
                     <ImageView
                         android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        app:srcCompat="@drawable/like_icon" />
+                        android:layout_height="15dp" />
 
                     <TextView
                         android:id="@+id/profile_cover_likes"
@@ -89,7 +89,6 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="10dp"
-                        android:text="1,400 likes"
                         android:textSize="10sp" />
                 </LinearLayout>
             </LinearLayout>

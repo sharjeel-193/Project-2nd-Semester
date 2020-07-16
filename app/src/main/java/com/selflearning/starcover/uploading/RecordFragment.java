@@ -91,28 +91,28 @@ public class RecordFragment extends Fragment {
                 if (!isRecording) {
                     if (checkPermissions()){
 
-                        startRecording();
-
                         if (timeWhenStopped == 0) {
                             startChronometer();
                         } else {
                             resumeChronometer();
                         }
-                    meterView.resume(true);
-                    isRecording = !isRecording;
-                    recordingBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimaryDark)));
-                    recordingBtn.setImageResource(R.drawable.ic_mic_light);
-                }
-            }else {
-                    //stop recording
-                    stopSong();
-                    stopRecording();
+                        meterView.resume(true);
+                        isRecording = !isRecording;
+                        recordingBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimaryDark)));
+                        recordingBtn.setImageResource(R.drawable.ic_mic_light);
+                        startRecording();
 
+
+                }
+                }else {
                     pauseChronometer();
                     meterView.pause();
                     isRecording = !isRecording;
                     recordingBtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
                     recordingBtn.setImageResource(R.drawable.ic_mic_dark);
+                    //stop recording
+                    stopSong();
+                    stopRecording();
                 }
             }
 

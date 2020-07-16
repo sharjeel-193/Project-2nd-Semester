@@ -2,6 +2,7 @@ package com.selflearning.starcover.ui.profile;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.view.ContextMenu;
@@ -50,9 +51,9 @@ public class MyProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder>{
 
         holder.coverThumbnail.setImageResource(R.drawable.thumbnail3);
         holder.coverName.setText(coverList.get(position).getCoverName());
-        holder.coverArtist.setText(coverList.get(position).getCoverArtist());
+//        holder.coverArtist.setText(coverList.get(position).getCoverArtist());
         holder.coverDuration.setText(coverList.get(position).getCoverDuration());
-        holder.coverLikes.setText(coverList.get(position).getCoverLikes());
+//        holder.coverLikes.setText(coverList.get(position).getCoverLikes());
         mplayer = new MediaPlayer();
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +63,7 @@ public class MyProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder>{
                 Uri uri = coverList.get(position).getUri();
                 if (isPlaying) {
                     // mplayer.stop();
+                    holder.playerBn.setImageResource(R.drawable.play_button);
                     mplayer.reset();
                     isPlaying = false;
                 }
@@ -69,6 +71,7 @@ public class MyProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder>{
                     try {
                         mplayer.setDataSource(String.valueOf(uri));
                         mplayer.prepare();
+                        holder.playerBn.setImageResource(R.drawable.pause_button);
                         mplayer.start();
                         isPlaying = true;
                     } catch (IOException e) {
@@ -111,6 +114,7 @@ class ProfileViewHolder extends RecyclerView.ViewHolder{
     ImageView coverThumbnail;
     TextView coverName, coverArtist, coverDuration, coverLikes;
     CardView cardView;
+    ImageView playerBn;
 
 
     public ProfileViewHolder(@NonNull final View itemView) {
@@ -122,6 +126,7 @@ class ProfileViewHolder extends RecyclerView.ViewHolder{
         coverDuration = (TextView) itemView.findViewById(R.id.profile_cover_duration);
         coverLikes = (TextView) itemView.findViewById(R.id.profile_cover_likes);
         cardView = (CardView) itemView.findViewById(R.id.profile_cover_card);
+        playerBn = (ImageView) itemView.findViewById(R.id.profile_player_button);
 
         cardView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

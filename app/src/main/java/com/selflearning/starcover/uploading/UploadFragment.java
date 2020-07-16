@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -107,6 +108,7 @@ public class UploadFragment extends Fragment {
             public void onClick(View view) {
                 if(isPlaying){
                     mediaPlayer.stop();
+                    imageView.setImageResource(R.drawable.pause_button);
                     isPlaying=false;
                 }
                 else {
@@ -115,6 +117,7 @@ public class UploadFragment extends Fragment {
                         mediaPlayer.setDataSource(fd);
                         mediaPlayer.prepare();
                         mediaPlayer.start();
+                        imageView.setImageResource(R.drawable.play_button);
                         isPlaying=true;
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -154,7 +157,7 @@ public class UploadFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Uri Upfile = Uri.fromFile(new File(file));
-                StorageReference riversRef = storageRef.child("Audio/"+Upfile.getLastPathSegment());
+                StorageReference riversRef = storageRef.child("Audio/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()+"-"+songName.getText().toString());
                 UploadTask uploadTask = riversRef.putFile(Upfile);
 
 // Register observers to listen for when the download is done or if it fails

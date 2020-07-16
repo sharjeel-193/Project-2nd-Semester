@@ -87,6 +87,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 createUserAccount();
                 Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
