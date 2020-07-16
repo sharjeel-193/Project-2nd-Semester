@@ -106,7 +106,7 @@ public class UploadFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(isPlaying){
-                    mediaPlayer.stop();
+                    mediaPlayer.reset();
                     isPlaying=false;
                 }
                 else {
