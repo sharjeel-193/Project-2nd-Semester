@@ -47,6 +47,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/link_for_pic"
                 android:text="Change Picture"
                 android:textColor="@color/colorAccent" />
 
@@ -155,14 +156,14 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/register_facebook"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginRight="10dp"
                     app:srcCompat="@drawable/facebook" />
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/register_gmail"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"

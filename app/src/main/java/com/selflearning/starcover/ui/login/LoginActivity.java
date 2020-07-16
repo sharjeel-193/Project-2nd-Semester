@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.selflearning.starcover.MainActivity;
 import com.selflearning.starcover.R;
 import com.selflearning.starcover.RegistrationActivity;
+import com.selflearning.starcover.SplashActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -35,14 +36,16 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        firebaseAuth = FirebaseAuth.getInstance();
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
+        if(firebaseAuth.getCurrentUser() != null){
+            Intent intent = new Intent(LoginActivity.this, SplashActivity.class);
+            startActivity(intent);
+            finish();
+        }
         getSupportActionBar().hide();
-//
-//        final EditText usernameEditText = (EditText) findViewById(R.id.login_email);
-//        final EditText passwordEditText = (EditText) findViewById(R.id.login_password);
-//        final Button loginButton = (Button) findViewById(R.id.login);
-//        final ProgressBar loadingProgressBar = (ProgressBar) findViewById(R.id.loading);
+
 
         findingViewsById();
 
@@ -56,6 +59,8 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +81,8 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
+                findViewById(R.id.loading).setVisibility(View.VISIBLE);
+
                 firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -85,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                             finish();
                         } else {
                             Toast.makeText(LoginActivity.this,"Error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                            findViewById(R.id.loading).setVisibility(View.GONE);
                         }
                     }
                 });

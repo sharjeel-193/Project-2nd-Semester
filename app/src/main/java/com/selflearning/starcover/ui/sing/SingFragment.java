@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -66,8 +67,11 @@ import java.util.List;
         Log.d("Qasim", "Size: " + songUrls.size());
         for(int i = 0; i < songNames.size(); i++) {
             String url = "";
-            if (i >= songUrls.size())
+            if (i >= songUrls.size()) {
+                Toast.makeText(getActivity(),
+                        "Please refresh the page", Toast.LENGTH_SHORT).show();
                 url = null;
+            }
             else
                 url = songUrls.get(i);
             if (i % 2 == 0 )

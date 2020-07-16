@@ -1,6 +1,8 @@
 package com.selflearning.starcover.ui.home;
 
 import android.content.Context;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.selflearning.starcover.Logic.Cover;
 import com.selflearning.starcover.R;
 
+import java.io.IOException;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -24,6 +27,8 @@ public class MyHomeAdapter extends RecyclerView.Adapter<HomeViewHolder>{
 
     private Context context;
     private List<Cover> coverList;
+    boolean isPlaying = false;
+    MediaPlayer mplayer;
 
     public MyHomeAdapter(Context context, List<Cover> coverList) {
         this.context = context;
@@ -38,7 +43,7 @@ public class MyHomeAdapter extends RecyclerView.Adapter<HomeViewHolder>{
 
 
     @Override
-    public void onBindViewHolder(HomeViewHolder holder, int position) {
+    public void onBindViewHolder(HomeViewHolder holder, final int position) {
 
         //ORIGINAL CODE
 
@@ -59,9 +64,33 @@ public class MyHomeAdapter extends RecyclerView.Adapter<HomeViewHolder>{
         holder.coverDuration.setText(coverList.get(position).getCoverDuration());
         holder.coverLikes.setText(coverList.get(position).getCoverLikes());
         holder.thumbnail.setImageResource(coverList.get(position).getCoverThumbnail());
+        mplayer = new MediaPlayer();
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
 
+                Uri uri = coverList.get(position).getUri();
+                if (isPlaying) {
+                    // mplayer.stop();
+                    mplayer.reset();
+                    isPlaying = false;
+                }
+                else{
+                    try {
+                        mplayer.setDataSource(String.valueOf(uri));
+                        mplayer.prepare();
+                        mplayer.start();
+                        isPlaying = true;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
+                }
+                // isPlaying = !isPlaying;
+            }
+
+        });
 
     }
 
