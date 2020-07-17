@@ -106,11 +106,13 @@ public class UploadFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(isPlaying){
+                    imageView.setImageResource(R.drawable.play_button);
                     mediaPlayer.reset();
                     isPlaying=false;
                 }
                 else {
                     try {
+                        imageView.setImageResource(R.drawable.pause_button);
                         FileDescriptor fd = new FileInputStream(file).getFD();
                         mediaPlayer.setDataSource(fd);
                         mediaPlayer.prepare();

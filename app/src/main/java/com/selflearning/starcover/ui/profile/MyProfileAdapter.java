@@ -49,6 +49,7 @@ public class MyProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder>{
     public void onBindViewHolder(@NonNull final ProfileViewHolder holder, final int position) {
 
         holder.coverThumbnail.setImageResource(R.drawable.thumbnail3);
+        holder.playerBtn.setImageResource(R.drawable.play_button);
         holder.coverName.setText(coverList.get(position).getCoverName());
         holder.coverArtist.setText(coverList.get(position).getCoverArtist());
         holder.coverDuration.setText(coverList.get(position).getCoverDuration());
@@ -57,11 +58,9 @@ public class MyProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder>{
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 Uri uri = coverList.get(position).getUri();
                 if (isPlaying) {
-                    // mplayer.stop();
+                    holder.playerBtn.setImageResource(R.drawable.play_button);
                     mplayer.reset();
                     isPlaying = false;
                 }
@@ -69,6 +68,7 @@ public class MyProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder>{
                     try {
                         mplayer.setDataSource(String.valueOf(uri));
                         mplayer.prepare();
+                        holder.playerBtn.setImageResource(R.drawable.pause_button);
                         mplayer.start();
                         isPlaying = true;
                     } catch (IOException e) {
@@ -108,7 +108,7 @@ public class MyProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder>{
 
 class ProfileViewHolder extends RecyclerView.ViewHolder{
 
-    ImageView coverThumbnail;
+    ImageView coverThumbnail, playerBtn;
     TextView coverName, coverArtist, coverDuration, coverLikes;
     CardView cardView;
 
@@ -117,6 +117,7 @@ class ProfileViewHolder extends RecyclerView.ViewHolder{
         super(itemView);
 
         coverThumbnail = (ImageView) itemView.findViewById(R.id.profile_cover_thumbnail);
+        playerBtn = (ImageView) itemView.findViewById(R.id.profile_player_button);
         coverName = (TextView) itemView.findViewById(R.id.profile_cover_song);
         coverArtist = (TextView) itemView.findViewById(R.id.profile_cover_artist);
         coverDuration = (TextView) itemView.findViewById(R.id.profile_cover_duration);
